@@ -16,9 +16,35 @@ import {
   Center,
   Button,
   Text,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 import { SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
+
+import axios from "axios";
+import { useReducer, useEffect, useState } from "react";
+
+// To Maintain Search Query
+const reducer1 = (state, action) => {
+  switch (action.type) {
+    case "query": {
+      return {
+        ...state,
+        query: action.payload,
+      };
+    }
+
+    case "getData": {
+      return {
+        ...state,
+        searchdata: action.payload,
+      };
+    }
+    default: {
+      throw new Error("Result Not Found");
+    }
+  }
+};
 
 function Navbar() {
   const {
@@ -31,6 +57,45 @@ function Navbar() {
     color: "grey",
     fontWeight: "600",
   };
+
+  // to add a search query as parameter
+  const [getDatas, dispatch1] = useReducer(reducer1, {
+    query: "",
+    searchdata: {},
+  });
+
+  // To search and get the data from input
+
+  const { searchdata, query } = getDatas;
+
+  useEffect(() => {
+    let debounce;
+    if (query != "") {
+      debounce = setTimeout(() => {
+        getData();
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(debounce);
+    };
+  }, [query]);
+  const getData = async () => {
+    try {
+      let res = await axios.get(
+        `https://omdbapi.com/?apikey=d67c9775&t=${query}`
+      );
+
+      dispatch1({
+        type: "getData",
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  function handleClick() {}
   return (
     <>
       <Flex
@@ -56,16 +121,18 @@ function Navbar() {
         }}
       >
         <Box>
-          <Image
-            w={{
-              base: "90%",
-              sm: "90%",
-              md: "98%",
-              lg: "100%",
-            }}
-            ml="15%"
-            src="https://yts.mx/assets/images/website/logo-YTS.svg"
-          />
+          <Link href="/">
+            <Image
+              w={{
+                base: "90%",
+                sm: "90%",
+                md: "98%",
+                lg: "100%",
+              }}
+              ml="15%"
+              src="https://yts.mx/assets/images/website/logo-YTS.svg"
+            />
+          </Link>
         </Box>
 
         {/* for small and medium screen */}
@@ -341,11 +408,59 @@ function Navbar() {
           alignItems="center"
           gap="20px"
         >
-          <InputGroup>
+          <InputGroup display={"grid"}>
             <InputLeftElement pointerEvents="none">
               <SearchIcon color="gray.300" />
             </InputLeftElement>
-            <Input type="tel" placeholder="Quick search" />
+            <Input
+              type="tel"
+              placeholder="Quick search"
+              value={query}
+              onChange={(e) =>
+                dispatch1({
+                  type: "query",
+                  payload: e.target.value,
+                })
+              }
+            />
+
+            {query != "" ? (
+              <Box
+                onClick={handleClick}
+                border="1px solid white"
+                borderBottomRadius={"10px"}
+                p={2}
+                display={"flex"}
+                gap={"10px"}
+              >
+                <Box>
+                  <Image w="50px" h="50px" src={searchdata.Poster} />
+                </Box>
+
+                <Box>
+                  <Text>Title : {searchdata.Title}</Text>
+                  <Text>Year : {searchdata.Year}</Text>
+                </Box>
+              </Box>
+            ) : (
+              <Box
+                _hover={{ backgroundColor: "lightgreen" }}
+                border="1px solid white"
+                borderBottomRadius={"10px"}
+                p={2}
+                display={"none"}
+                gap={"10px"}
+              >
+                <Box>
+                  <Image w="50px" h="50px" src={searchdata.Poster} />
+                </Box>
+
+                <Box>
+                  <Text>Title : {searchdata.Title}</Text>
+                  <Text>Year : {searchdata.Year}</Text>
+                </Box>
+              </Box>
+            )}
           </InputGroup>
 
           <Link
