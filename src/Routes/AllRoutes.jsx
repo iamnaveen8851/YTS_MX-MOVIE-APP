@@ -1,6 +1,14 @@
+import {Routes, Route} from 'react-router-dom'
+
+
+
+// Local imports 
+import Home from '../Pages/Home';
 function AllRoutes(){
     return(
-        <h1>Routes</h1>
+      <Routes>
+        <Route path="/" element={<Home/>}/>
+      </Routes> 
     )
 }
 
