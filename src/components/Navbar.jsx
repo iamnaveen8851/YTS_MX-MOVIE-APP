@@ -5,12 +5,21 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Spacer,
+  Link,
+  IconButton,
+  Drawer,
+  DrawerContent,
+  DrawerBody,
+  DrawerOverlay,
+  DrawerHeader,
+  DrawerCloseButton,
+  useDisclosure,
 } from "@chakra-ui/react";
 
-import { SearchIcon } from "@chakra-ui/icons";
-import { Link } from "react-router-dom";
+import { SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
+
 function Navbar() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const LinkStyle = {
     color: "grey",
     fontWeight: "600",
@@ -18,12 +27,12 @@ function Navbar() {
   return (
     <>
       <Flex
-        bg="black"
+        bg="RGBA(0, 0, 0, 0.92)"
         color="white"
         justifyContent={"space-between"}
         alignItems={"center"}
         p={{
-          base: "3%",
+          base: "0%",
           sm: "3%",
           md: "3%",
           lg: "2%",
@@ -39,43 +48,164 @@ function Navbar() {
           "2xl": "100%",
         }}
       >
-        <Box >
-          <Image w={{
-            base : "75%",
-            sm : "90%",
-            md : "98%",
-            lg :  "100%"
-        }} src="https://yts.mx/assets/images/website/logo-YTS.svg" />
+        <Box>
+          <Image
+            w={{
+              base: "90%",
+              sm: "90%",
+              md: "98%",
+              lg: "100%",
+            }}
+            ml="15%"
+            src="https://yts.mx/assets/images/website/logo-YTS.svg"
+          />
         </Box>
 
         {/* for small and medium screen */}
-        <Box border="5px solid gold"
-        display={{
-            base :" flex",
-            sm : "flex",
-            md : "flex",
-            lg : "none",
-            xl : "none",
-            "2xl" : "none"
-
-        }}
-
-        w={{
-            base : "60%",
-            sm : "70%",
-            md : "70",
+        <Box
+          // border="5px solid gold"
+          display={{
+            base: " flex",
+            sm: "flex",
+            md: "flex",
+            lg: "none",
+            xl: "none",
+            "2xl": "none",
+          }}
+          w={{
+            base: "28%", // 0px
+            sm: "20%", // ~480px. em is a relative unit and is dependant on the font size.
+            md: "18%", // ~768px
+            lg: "16%", // ~992px
+            xl: "0", // ~1280px
+            "2xl": "0", // ~1536px
+          }}
+          p={{
+            base: "3%",
+            sm: "3%",
+            md: "3%",
+          }}
+          justifyContent={"space-between"}
+        >
+          <Link
+            fontSize={{
+              base: "22px",
+              sm: "22px",
+              md: "22px",
+              lg: "22px",
+              xl: "22px",
+              "2xl": "22px",
+            }}
+          >
+            {<SearchIcon />}
+          </Link>
+          <IconButton
+            onClick={onOpen}
+            border="1px solid white"
+            p={2.5}
+            bg="none"
+            _hover={{
+              backgroundColor: "transparent",
+              border: "1px dashed white",
+            }}
+            color={"white"}
+            fontSize={"22px"}
+            aria-label="Search database"
+            icon={<HamburgerIcon />}
+          />
+          {/* Drawer  for options */}
+          <Drawer
+            size="xs"
+            isOpen={isOpen}
+            placement="right"
+            onClose={onClose}
            
-
-        }}
-
-        p={{
-            base : "3%",
-            sm : "3%",
-            md : "3%",
-            
-        }}
-        ></Box>
-
+            // finalFocusRef={btnRef}
+          >
+            <DrawerOverlay  />
+            <DrawerContent bg="RGBA(0, 0, 0, 0.92)" >
+              <DrawerCloseButton color={"white"} />
+             
+              <DrawerBody
+                bg="RGBA(0, 0, 0, 0.92)"
+                
+                display={"flex"}
+                flexDirection={"column"}
+                gap={"10%"}
+                justifyContent={"center"}
+                alignItems={"center"}
+                mb={400}
+              >
+                <Link
+                  style={{
+                    ...LinkStyle,
+                    transition: "transform 0.2s",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  _hover={{ transform: "scale(1.1)", color: "white" }}
+                >
+                  Home
+                </Link>
+                <Link
+                  style={{
+                    ...LinkStyle,
+                    transition: "transform 0.2s",
+                    cursor: "pointer",
+                    color: "lightgreen",
+                  }}
+                  _hover={{ transform: "scale(1.1)", color: "white" }}
+                >
+                  4K
+                </Link>
+                <Link
+                  style={{
+                    ...LinkStyle,
+                    transition: "transform 0.2s",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  _hover={{ transform: "scale(1.1)", color: "white" }}
+                >
+                  Trending
+                </Link>
+                <Link
+                  style={{
+                    ...LinkStyle,
+                    transition: "transform 0.2s",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  _hover={{ transform: "scale(1.1)", color: "white" }}
+                >
+                  Browse Movies
+                </Link>
+                <Link
+                  style={{
+                    ...LinkStyle,
+                    transition: "transform 0.2s",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  _hover={{ transform: "scale(1.1)", color: "white" }}
+                >
+                  Login
+                </Link>
+                <Link
+                  style={{
+                    ...LinkStyle,
+                    transition: "transform 0.2s",
+                    cursor: "pointer",
+                    color: "white",
+                  }}
+                  _hover={{ transform: "scale(1.1)", color: "white" }}
+                >
+                  Register
+                </Link>
+              </DrawerBody>
+            </DrawerContent>
+          </Drawer>
+        </Box>
 
         {/* For large screen  */}
         <Box
@@ -106,12 +236,72 @@ function Navbar() {
             <Input type="tel" placeholder="Quick search" />
           </InputGroup>
 
-          <Link style={LinkStyle}>Home</Link>
-          <Link style={{ fontWeight: "600", color: "lightgreen" }}>4K</Link>
-          <Link style={LinkStyle}>Trending</Link>
-          <Link style={LinkStyle}>BrowseMovies</Link>
-          <Link style={LinkStyle}>Login</Link>
-          <Link style={LinkStyle}>Register</Link>
+          <Link
+            style={LinkStyle}
+            _hover={{
+              transform: "scale(1.1)",
+              textDecoration: "underline",
+              textDecorationColor: "lightgreen",
+              textDecorationThickness: "11%",
+            }}
+          >
+            Home
+          </Link>
+          <Link
+            style={{ fontWeight: "600", color: "lightgreen" }}
+            _hover={{
+              transform: "scale(1.1)",
+              textDecoration: "underline",
+              textDecorationColor: "white",
+              textDecorationThickness: "11%",
+            }}
+          >
+            4K
+          </Link>
+          <Link
+            style={LinkStyle}
+            _hover={{
+              transform: "scale(1.1)",
+              textDecoration: "underline",
+              textDecorationColor: "lightgreen",
+              textDecorationThickness: "11%",
+            }}
+          >
+            Trending
+          </Link>
+          <Link
+            style={LinkStyle}
+            _hover={{
+              transform: "scale(1.1)",
+              textDecoration: "underline",
+              textDecorationColor: "lightgreen",
+              textDecorationThickness: "11%",
+            }}
+          >
+            BrowseMovies
+          </Link>
+          <Link
+            style={LinkStyle}
+            _hover={{
+              transform: "scale(1.1)",
+              textDecoration: "underline",
+              textDecorationColor: "lightgreen",
+              textDecorationThickness: "11%",
+            }}
+          >
+            Login
+          </Link>
+          <Link
+            style={LinkStyle}
+            _hover={{
+              transform: "scale(1.1)",
+              textDecoration: "underline",
+              textDecorationColor: "lightgreen",
+              textDecorationThickness: "11%",
+            }}
+          >
+            Register
+          </Link>
         </Box>
       </Flex>
     </>

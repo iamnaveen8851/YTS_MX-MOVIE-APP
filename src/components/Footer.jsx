@@ -1,11 +1,11 @@
-import { Flex, Text, Box, Center } from "@chakra-ui/react";
+import { Text, Box, Center } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 
 function Footer() {
   return (
     <>
       <Center
-        bg="black"
+        bg="RGBA(0, 0, 0, 0.92)"
         w={{
           base: "100%",
           sm: "100%",
@@ -21,7 +21,7 @@ function Footer() {
         gap={"20px"}
       >
         <Center
-        //   border={"5px solid green"}
+          //   border={"5px solid green"}
           w={{
             base: "100%%",
             sm: "100%",
@@ -33,13 +33,12 @@ function Footer() {
           m="auto"
           display={"flex"}
           gap={{
-            base : "4px",
-            sm : "5px",
-            md : "9px",
+            base: "4px",
+            sm: "5px",
+            md: "9px",
             lg: "12px",
-            xl : "14px",
-            "2xl" : "14px"
-
+            xl: "14px",
+            "2xl": "14px",
           }}
           fontSize={{
             base: "6.8px",

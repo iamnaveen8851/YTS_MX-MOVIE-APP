@@ -9,11 +9,15 @@
 ### React-Router-DOM check[x]
 
       - Installation check[x]
-      - wrap App component inside BrowserRouter check[x]
+      - Wrap App component inside BrowserRouter check[x]
 
 ### Chakra-UI check[x]
 
 ### Axios check[x]
+
+
+
+
 
 ## Project Structure
 
