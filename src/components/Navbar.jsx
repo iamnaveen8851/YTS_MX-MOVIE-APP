@@ -22,7 +22,30 @@ import {
 import { SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
 
 import axios from "axios";
+import Home from "../Pages/Home";
 import { useReducer, useEffect, useState } from "react";
+
+// To Maintain Search Query
+const reducer2 = (state, action) => {
+  switch (action.type) {
+    case "query": {
+      return {
+        ...state,
+        query2: action.payload,
+      };
+    }
+
+    case "getData": {
+      return {
+        ...state,
+        searchdata2: action.payload,
+      };
+    }
+    default: {
+      throw new Error("Result Not Found");
+    }
+  }
+};
 
 // To Maintain Search Query
 const reducer1 = (state, action) => {
@@ -30,14 +53,14 @@ const reducer1 = (state, action) => {
     case "query": {
       return {
         ...state,
-        query: action.payload,
+        query1: action.payload,
       };
     }
 
     case "getData": {
       return {
         ...state,
-        searchdata: action.payload,
+        searchdata1: action.payload,
       };
     }
     default: {
@@ -59,31 +82,37 @@ function Navbar() {
   };
 
   // to add a search query as parameter
-  const [getDatas, dispatch1] = useReducer(reducer1, {
-    query: "",
-    searchdata: {},
+  const [getDatas1, dispatch1] = useReducer(reducer1, {
+    query1: "",
+    searchdata1: {},
+  });
+  // to add a search query as parameter
+  const [getDatas2, dispatch2] = useReducer(reducer2, {
+    query2: "",
+    searchdata2: [],
   });
 
   // To search and get the data from input
 
-  const { searchdata, query } = getDatas;
+  const { searchdata1, query1 } = getDatas1;
+  const { searchdata2, query2 } = getDatas2;
 
   useEffect(() => {
     let debounce;
-    if (query != "") {
+    if (query1 != "") {
       debounce = setTimeout(() => {
-        getData();
+        getData1();
       }, 1000);
     }
 
     return () => {
       clearTimeout(debounce);
     };
-  }, [query]);
-  const getData = async () => {
+  }, [query1]);
+  const getData1 = async () => {
     try {
       let res = await axios.get(
-        `https://omdbapi.com/?apikey=d67c9775&t=${query}`
+        `https://omdbapi.com/?apikey=d67c9775&t=${query1}`
       );
 
       dispatch1({
@@ -95,6 +124,22 @@ function Navbar() {
     }
   };
 
+  const getData2 = async () => {
+    try {
+      let res = await axios.get(
+        `https://omdbapi.com/?apikey=d67c9775&s=${query2}`
+      );
+      // console.log(res);
+      dispatch2({
+        type: "getData",
+        payload: res.data.Search,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(searchdata2);
   function handleClick() {}
   return (
     <>
@@ -204,13 +249,15 @@ function Navbar() {
                       p={5}
                     >
                       <Text
+                        fontSize={30}
+                        fontWeight={600}
                         ml={{
                           base: "9%",
                           sm: "6%",
                           md: "5%",
                           lg: "4%",
-                          xl: "2.5%",
-                          "2xl": "2.5%",
+                          xl: "3%",
+                          "2xl": "1.2%",
                         }}
                       >
                         Search Term:
@@ -235,8 +282,16 @@ function Navbar() {
                           _focus={{ borderColor: "green" }}
                           type="text"
                           placeholder="Search Movie"
+                          value={query2}
+                          onChange={(e) =>
+                            dispatch2({
+                              type: "query",
+                              payload: e.target.value,
+                            })
+                          }
                         />
                         <Button
+                          onClick={getData2}
                           mt={{
                             base: "8%",
                             sm: "8%",
@@ -415,7 +470,7 @@ function Navbar() {
             <Input
               type="tel"
               placeholder="Quick search"
-              value={query}
+              value={query1}
               onChange={(e) =>
                 dispatch1({
                   type: "query",
@@ -424,7 +479,7 @@ function Navbar() {
               }
             />
 
-            {query != "" ? (
+            {query1 != "" ? (
               <Box
                 onClick={handleClick}
                 border="1px solid white"
@@ -434,12 +489,12 @@ function Navbar() {
                 gap={"10px"}
               >
                 <Box>
-                  <Image w="50px" h="50px" src={searchdata.Poster} />
+                  <Image w="50px" h="50px" src={searchdata1.Poster} />
                 </Box>
 
                 <Box>
-                  <Text>Title : {searchdata.Title}</Text>
-                  <Text>Year : {searchdata.Year}</Text>
+                  <Text>Title : {searchdata1.Title}</Text>
+                  <Text>Year : {searchdata1.Year}</Text>
                 </Box>
               </Box>
             ) : (
@@ -452,12 +507,12 @@ function Navbar() {
                 gap={"10px"}
               >
                 <Box>
-                  <Image w="50px" h="50px" src={searchdata.Poster} />
+                  <Image w="50px" h="50px" src={searchdata1.Poster} />
                 </Box>
 
                 <Box>
-                  <Text>Title : {searchdata.Title}</Text>
-                  <Text>Year : {searchdata.Year}</Text>
+                  <Text>Title : {searchdata1.Title}</Text>
+                  <Text>Year : {searchdata1.Year}</Text>
                 </Box>
               </Box>
             )}
@@ -531,6 +586,8 @@ function Navbar() {
           </Link>
         </Box>
       </Flex>
+
+      <Home query2={query2} searchdata2={searchdata2}/>
     </>
   );
 }

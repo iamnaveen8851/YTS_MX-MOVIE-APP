@@ -10,11 +10,11 @@ import {
   CardBody,
   Stack,
   Heading,
-  Link
+  Link,
 } from "@chakra-ui/react";
 
 import axios from "axios";
-import { useReducer, useEffect, useState } from "react";
+import { useReducer, useEffect,  } from "react";
 
 // To Maintain Search Query
 const reducer1 = (state, action) => {
@@ -68,7 +68,8 @@ const reducer2 = (state, action) => {
   }
 };
 
-function Home() {
+function Home({ query2, searchdata2 }) {
+    
   // to add a search query as parameter
   const [getDatas, dispatch1] = useReducer(reducer1, {
     query: "",
@@ -81,8 +82,6 @@ function Home() {
     totalPages: 0,
     page: 1,
   });
-
- 
 
   const { data, totalPages, page } = allData;
   useEffect(() => {
@@ -122,7 +121,6 @@ function Home() {
 
   const getData = async () => {
     try {
-   
       let res = await axios.get(
         `https://omdbapi.com/?apikey=d67c9775&s=${query}`
       );
@@ -130,13 +128,14 @@ function Home() {
         type: "getData",
         payload: res.data.Search,
       });
-      
-      
     } catch (error) {
       console.log(error);
     }
   };
- 
+
+
+
+
 
   return (
     <>
@@ -169,13 +168,15 @@ function Home() {
           p={5}
         >
           <Text
+          fontSize={30}
+          fontWeight={600}
             ml={{
               base: "9%",
               sm: "6%",
               md: "5%",
               lg: "4%",
-              xl: "2.5%",
-              "2xl": "2.5%",
+              xl: "3%",
+              "2xl": "1.2%",
             }}
           >
             Search Term:
@@ -253,18 +254,7 @@ function Home() {
           w="55%"
           p={5}
         >
-          <Text
-            ml={{
-              base: "9%",
-              sm: "6%",
-              md: "5%",
-              lg: "4%",
-              xl: "2.5%",
-              "2xl": "2.5%",
-            }}
-          >
-            Search Term:
-          </Text>
+       
           <Box
             p={5}
             mt="1%"
@@ -279,11 +269,16 @@ function Home() {
             }}
             justifyContent="space-between"
             gap="5%"
-          ></Box>
+          >
+
+          </Box>
         </Box>
       </Center>
 
-      {query != '' ? (
+
+
+{/* To display Data based on condition */}
+      {query && query2 != "" ? (
         <Center p={10} h="1800px" bg="black" display={"grid"} gap={"5%"}>
           {/* Pagination  */}
 
@@ -296,7 +291,6 @@ function Home() {
             m="auto"
             // border={"1px solid white"}
             p={2}
-           
           >
             <Button
               color="white"
@@ -516,7 +510,6 @@ function Home() {
           >
             {data.map((movie, index) => (
               <Box
-              
                 h={{
                   base: "450px",
                 }}
@@ -542,7 +535,12 @@ function Home() {
                       borderRadius="lg"
                     />
                     <Stack mt="6" spacing="3">
-                      <Link href={`/movie/${encodeURIComponent(movie.Title)}`} size="sm">{movie.Title}</Link>
+                      <Link
+                        href={`/movie/${encodeURIComponent(movie.Title)}`}
+                        size="sm"
+                      >
+                        {movie.Title}
+                      </Link>
                       <Heading size="sm">{movie.Year}</Heading>
                     </Stack>
                   </CardBody>
