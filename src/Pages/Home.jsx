@@ -16,7 +16,7 @@ import {
 } from "@chakra-ui/react";
 
 import axios from "axios";
-import { useReducer, useEffect } from "react";
+import { useReducer, useEffect, useState } from "react";
 
 // To Maintain Search Query
 const reducer1 = (state, action) => {
@@ -85,16 +85,36 @@ function Home({ query2, searchdata2, searchdata2Length }) {
   });
 
   const { data, totalPages, page } = allData;
+
+  //   To filter by type
+  const [type, setType] = useState("");
+  // To Sort the data by asc and desc
+  const [sortData, setSortData] = useState("asc");
+  console.log(sortData);
   useEffect(() => {
     const displayData = async () => {
       try {
         let res = await axios.get(
-          `https://omdbapi.com/?apikey=d67c9775&s=avenger&page=${page}`
+          `https://omdbapi.com/?apikey=d67c9775&s=avenger&page=${page}&type=${type}`
         );
+
+        // Fetch the data and store it in a variable
+        const fetchedData = res.data.Search;
+
+        // Sort the data based on the selected sorting order
+        const sortedData = [...fetchedData];
+        sortedData.sort((a, b) => {
+          if (sortData === "asc") {
+            return a.Year - b.Year;
+          } else if (sortData === "desc") {
+            return b.Year - a.Year;
+          }
+          return 0; // Default case
+        });
 
         dispatch({
           type: "all-data",
-          payload: res.data.Search,
+          payload: sortedData,
         });
 
         dispatch({
@@ -112,7 +132,7 @@ function Home({ query2, searchdata2, searchdata2Length }) {
     };
     //   Here i am calling the displayData function on mount phase
     displayData(page);
-  }, [page]);
+  }, [page, type, sortData]);
 
   // To search and get the data from input
 
@@ -253,20 +273,42 @@ function Home({ query2, searchdata2, searchdata2Length }) {
           >
             <Box w="30%">
               <Select
-                
                 bg="transparent"
                 placeholder="Year"
+                value={sortData}
+                onChange={(e) => setSortData(e.target.value)}
               >
-                <option style={{background: "transparent", color : "black"}} value="option1">Option 1</option>
-                <option style={{background: "transparent", color : "black"}} value="option2">Option 2</option>
-                <option style={{background: "transparent", color : "black"}} value="option3">Option 3</option>
+                <option
+                  style={{ background: "transparent", color: "black" }}
+                  value="asc"
+                >
+                  Newest
+                </option>
+                <option
+                  style={{ background: "transparent", color: "black" }}
+                  value="desc"
+                >
+                  Oldest
+                </option>
               </Select>
             </Box>
             <Box w="30%">
-              <Select placeholder="Type">
-                <option  style={{background: "transparent", color : "black"}} value="option1">Option 1</option>
-                <option style={{background: "transparent", color : "black"}} value="option2">Option 2</option>
-                <option style={{background: "transparent", color : "black"}} value="option3">Option 3</option>
+              <Select
+                placeholder="Type"
+                onChange={(e) => setType(e.target.value)}
+              >
+                <option
+                  style={{ background: "transparent", color: "black" }}
+                  value="movie"
+                >
+                  Movie
+                </option>
+                <option
+                  style={{ background: "transparent", color: "black" }}
+                  value="series"
+                >
+                  Series
+                </option>
               </Select>
             </Box>
           </Flex>
