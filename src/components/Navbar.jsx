@@ -183,7 +183,7 @@ function Navbar() {
         navigate("/");
         onModalClose();
         toast({
-          title: 'Account created.',
+          title: 'Login Successful.',
           description: "We've created your account for you.",
           status: 'success',
           duration: 9000,
