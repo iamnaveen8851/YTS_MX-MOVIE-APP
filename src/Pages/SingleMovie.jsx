@@ -17,9 +17,10 @@ import { useParams } from "react-router-dom";
 function SingleMovie() {
   const { title } = useParams();
 
+  console.log(title);
   const [data, setData] = useState({});
   useEffect(() => {
-    getData(title);
+    getData();
   }, [title]);
 
   const getData = async () => {
@@ -27,6 +28,7 @@ function SingleMovie() {
       let res = await axios.get(
         `https://omdbapi.com/?apikey=d67c9775&t=${title}`
       );
+
 
       setData(res.data);
       //   setData(res)
@@ -37,6 +39,7 @@ function SingleMovie() {
 
   console.log(data);
   return (
+  
     <Center  h="500px" bg="black">
       <Box
        

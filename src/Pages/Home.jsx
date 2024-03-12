@@ -13,6 +13,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 
+
 import axios from "axios";
 import { useReducer, useEffect } from "react";
 
@@ -69,7 +70,6 @@ const reducer2 = (state, action) => {
 };
 
 function Home({ query2, searchdata2, searchdata2Length }) {
- 
   // to add a search query as parameter
   const [getDatas, dispatch1] = useReducer(reducer1, {
     query: "",
@@ -90,7 +90,7 @@ function Home({ query2, searchdata2, searchdata2Length }) {
         let res = await axios.get(
           `https://omdbapi.com/?apikey=d67c9775&s=avenger&page=${page}`
         );
-       
+
         dispatch({
           type: "all-data",
           payload: res.data.Search,
@@ -131,8 +131,6 @@ function Home({ query2, searchdata2, searchdata2Length }) {
     }
   };
 
-
-  
   return (
     <>
       <Center
@@ -269,7 +267,7 @@ function Home({ query2, searchdata2, searchdata2Length }) {
       </Center>
 
       {/* To display Data based on condition */}
-      {(query !== "" && searchdata.length > 0) ? (
+      {query !== "" && searchdata.length > 0 ? (
         <Center p={10} h="1800px" bg="black" display={"grid"} gap={"5%"}>
           {/* Pagination  */}
 
@@ -423,7 +421,7 @@ function Home({ query2, searchdata2, searchdata2Length }) {
             </Button>
           </Box>
         </Center>
-      ) :( query2 !== "" && searchdata2Length  > 0) ? (
+      ) : query2 !== "" && searchdata2Length > 0 ? (
         <Center p={10} h="1800px" bg="black" display={"grid"} gap={"5%"}>
           {/* Pagination  */}
 
