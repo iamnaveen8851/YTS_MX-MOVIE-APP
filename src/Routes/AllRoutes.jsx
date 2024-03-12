@@ -8,15 +8,15 @@ import PrivateRoute from "./PrivateRoute";
 function AllRoutes() {
   return (
     <Routes>
+      <Route path="/movie/:title" element={<SingleMovie />} />
       <Route
-        path="/movie/:title"
+        path="/"
         element={
           <PrivateRoute>
-            <SingleMovie />
+            <Home />
           </PrivateRoute>
         }
       />
-      <Route path="/" element={<Home />} />
       <Route path="/home" element={<MovieData />} />
       <Route path="/browse" element={<MovieData />} />
       <Route path="/4k" element={<MovieData />} />

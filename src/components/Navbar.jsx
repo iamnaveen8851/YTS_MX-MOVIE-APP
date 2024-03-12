@@ -26,6 +26,7 @@ import {
   InputRightElement,
   FormControl,
   FormLabel,
+  useToast
 } from "@chakra-ui/react";
 
 import { SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
@@ -170,18 +171,27 @@ function Navbar() {
   };
 
   const navigate = useNavigate();
+  const toast = useToast()
   async function handleLogin(e) {
     try {
       e.preventDefault();
 
       let res = await axios.post(`https://reqres.in/api/login`, formState);
       if (res.request.status) {
+        console.log(res);
         login();
         navigate("/");
         onModalClose();
+        toast({
+          title: 'Account created.',
+          description: "We've created your account for you.",
+          status: 'success',
+          duration: 9000,
+          isClosable: true,
+        })
       }
 
-      onModalOpen();
+      
     } catch (error) {
       console.log(error);
     }
