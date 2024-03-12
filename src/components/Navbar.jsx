@@ -125,6 +125,7 @@ function Navbar() {
   };
 
   const getData2 = async () => {
+
     try {
       let res = await axios.get(
         `https://omdbapi.com/?apikey=d67c9775&s=${query2}`
@@ -134,6 +135,8 @@ function Navbar() {
         type: "getData",
         payload: res.data.Search,
       });
+
+      onClosed()
     } catch (error) {
       console.log(error);
     }
@@ -587,7 +590,11 @@ function Navbar() {
         </Box>
       </Flex>
 
-      <Home query2={query2} searchdata2={searchdata2}/>
+      <Home
+        query2={query2}
+        searchdata2={searchdata2}
+        searchdata2Length={searchdata2.length}
+      />
     </>
   );
 }

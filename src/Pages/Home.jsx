@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 
 import axios from "axios";
-import { useReducer, useEffect,  } from "react";
+import { useReducer, useEffect } from "react";
 
 // To Maintain Search Query
 const reducer1 = (state, action) => {
@@ -68,8 +68,8 @@ const reducer2 = (state, action) => {
   }
 };
 
-function Home({ query2, searchdata2 }) {
-    
+function Home({ query2, searchdata2, searchdata2Length }) {
+  console.log(searchdata2Length);
   // to add a search query as parameter
   const [getDatas, dispatch1] = useReducer(reducer1, {
     query: "",
@@ -134,9 +134,7 @@ function Home({ query2, searchdata2 }) {
   };
 
 
-
-
-
+  
   return (
     <>
       <Center
@@ -168,8 +166,8 @@ function Home({ query2, searchdata2 }) {
           p={5}
         >
           <Text
-          fontSize={30}
-          fontWeight={600}
+            fontSize={30}
+            fontWeight={600}
             ml={{
               base: "9%",
               sm: "6%",
@@ -254,7 +252,6 @@ function Home({ query2, searchdata2 }) {
           w="55%"
           p={5}
         >
-       
           <Box
             p={5}
             mt="1%"
@@ -269,16 +266,12 @@ function Home({ query2, searchdata2 }) {
             }}
             justifyContent="space-between"
             gap="5%"
-          >
-
-          </Box>
+          ></Box>
         </Box>
       </Center>
 
-
-
-{/* To display Data based on condition */}
-      {query && query2 != "" ? (
+      {/* To display Data based on condition */}
+      {(query !== "" && searchdata.length > 0) ? (
         <Center p={10} h="1800px" bg="black" display={"grid"} gap={"5%"}>
           {/* Pagination  */}
 
@@ -358,6 +351,160 @@ function Home({ query2, searchdata2 }) {
             gap="1px"
           >
             {searchdata.map((movie, index) => (
+              <Box
+                h={{
+                  base: "450px",
+                }}
+                w={{
+                  base: "75%",
+                  sm: "75%",
+                  md: "65%",
+                  lg: "75%",
+                  xl: "80%",
+                  "2xl": "60%",
+                }}
+                key={index}
+                // ml="auto"
+                m={"auto"}
+              >
+                <Card m="auto" borderRadius="20px">
+                  <CardBody>
+                    <Image
+                      w="350px"
+                      h="240px"
+                      src={movie.Poster}
+                      alt="Green double couch with wooden legs"
+                      borderRadius="lg"
+                    />
+                    <Stack mt="6" spacing="3">
+                      <Heading size="sm">{movie.Title}</Heading>
+                      <Heading size="sm">{movie.Year}</Heading>
+                    </Stack>
+                  </CardBody>
+                </Card>
+              </Box>
+            ))}
+          </SimpleGrid>
+
+          {/* Pagination  */}
+
+          <Box
+            bg="black"
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            gap={2}
+          >
+            <Button
+              color="white"
+              _hover={{ backgroundColor: "green" }}
+              onClick={() => dispatch({ type: "page", payload: page - 1 })}
+              colorScheme="green"
+            >
+              Prev
+            </Button>
+            {new Array(totalPages).fill(0).map((_, index) => (
+              <Button
+                colorScheme="transparent"
+                border={"1px solid white"}
+                color={"white"}
+                _hover={{ backgroundColor: "green" }}
+                onClick={() => dispatch({ type: "page", payload: index + 1 })}
+                key={index}
+              >
+                {index + 1}
+              </Button>
+            ))}
+            <Button
+              color="white"
+              _hover={{ backgroundColor: "green" }}
+              onClick={() => dispatch({ type: "page", payload: page + 1 })}
+              colorScheme="green"
+            >
+              Next
+            </Button>
+          </Box>
+        </Center>
+      ) :( query2 !== "" && searchdata2Length  > 0) ? (
+        <Center p={10} h="1800px" bg="black" display={"grid"} gap={"5%"}>
+          {/* Pagination  */}
+
+          <Box
+            mt="5%"
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            gap={2}
+            m="auto"
+            // border={"1px solid white"}
+            p={2}
+          >
+            <Button
+              color="white"
+              _hover={{ backgroundColor: "green" }}
+              onClick={() => dispatch({ type: "page", payload: page - 1 })}
+              colorScheme="green"
+            >
+              Prev
+            </Button>
+            {new Array(totalPages).fill(0).map((_, index) => (
+              <Button
+                colorScheme="transparent"
+                border={"1px solid white"}
+                color={"white"}
+                _hover={{ backgroundColor: "green" }}
+                onClick={() => dispatch({ type: "page", payload: index + 1 })}
+                key={index}
+              >
+                {index + 1}
+              </Button>
+            ))}
+            <Button
+              color="white"
+              _hover={{ backgroundColor: "green" }}
+              onClick={() => dispatch({ type: "page", payload: page + 1 })}
+              colorScheme="green"
+            >
+              Next
+            </Button>
+          </Box>
+
+          {/* display movie data on mount phase  and also on search based */}
+
+          <SimpleGrid
+            columns={{
+              base: "1", // 0px
+              sm: "2", // ~480px. em is a relative unit and is dependant on the font size.
+              md: "2", // ~768px
+              lg: "3", // ~992px
+              xl: "4", // ~1280px
+              "2xl": "4", // ~1536px
+            }}
+            w={{
+              base: "90%", // 0px
+              sm: "100%", // ~480px. em is a relative unit and is dependant on the font size.
+              md: "100%", // ~768px
+              lg: "100%", // ~992px
+              xl: "100%", // ~1280px
+              "2xl": "100%", // ~1536px
+            }}
+            m={{
+              base: "auto", // 0px
+              sm: "auto", // ~480px. em is a relative unit and is dependant on the font size.
+              md: "auto", // ~768px
+              lg: "auto", // ~992px
+              xl: "auto", // ~1280px
+              "2xl": "auto", // ~1536px
+            }}
+            // ml={{
+            //   base: "1%", // 0px
+            // }}
+            justifyContent={"space-around"}
+            alignItems={"center"}
+            // spacing="1px"
+            gap="1px"
+          >
+            {searchdata2.map((movie, index) => (
               <Box
                 h={{
                   base: "450px",
