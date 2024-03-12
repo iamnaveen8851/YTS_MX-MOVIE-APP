@@ -107,7 +107,8 @@ function MovieData() {
     <Center
       id="browse"
       p={10}
-      border={"2px solid red"}
+      mt="5%"
+      // border={"2px solid red"}
      
       bg="black"
       display={"grid"}

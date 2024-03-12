@@ -6,7 +6,7 @@
   - for login i've used reqres api 
     login credentials :- 
          --->  email: "eve.holt@reqres.in,
-         ---> password: "cityslicka
+         ---> password: "cityslicka"
           
 
 
