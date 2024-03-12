@@ -125,7 +125,6 @@ function Navbar() {
   };
 
   const getData2 = async () => {
-
     try {
       let res = await axios.get(
         `https://omdbapi.com/?apikey=d67c9775&s=${query2}`
@@ -136,14 +135,12 @@ function Navbar() {
         payload: res.data.Search,
       });
 
-      onClosed()
+      onClosed();
     } catch (error) {
       console.log(error);
     }
   };
 
-  console.log(searchdata2);
-  function handleClick() {}
   return (
     <>
       <Flex
@@ -484,7 +481,6 @@ function Navbar() {
 
             {query1 != "" ? (
               <Box
-                onClick={handleClick}
                 border="1px solid white"
                 borderBottomRadius={"10px"}
                 p={2}

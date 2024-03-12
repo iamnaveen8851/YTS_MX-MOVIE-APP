@@ -69,7 +69,7 @@ const reducer2 = (state, action) => {
 };
 
 function Home({ query2, searchdata2, searchdata2Length }) {
-  console.log(searchdata2Length);
+ 
   // to add a search query as parameter
   const [getDatas, dispatch1] = useReducer(reducer1, {
     query: "",
@@ -90,9 +90,7 @@ function Home({ query2, searchdata2, searchdata2Length }) {
         let res = await axios.get(
           `https://omdbapi.com/?apikey=d67c9775&s=avenger&page=${page}`
         );
-        //  console.log(res.data.Search);
-        //  console.log('totalPage' ,res.data.totalResults);
-
+       
         dispatch({
           type: "all-data",
           payload: res.data.Search,
