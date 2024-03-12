@@ -11,8 +11,9 @@ import {
   Stack,
   Heading,
   Link,
+  Select,
+  Flex,
 } from "@chakra-ui/react";
-
 
 import axios from "axios";
 import { useReducer, useEffect } from "react";
@@ -240,6 +241,35 @@ function Home({ query2, searchdata2, searchdata2Length }) {
               Search
             </Button>
           </Box>
+          <br />
+          <Flex
+            w="60%"
+            // p={1}
+            // border={"2px solid white"}
+            justify={"space-around"}
+            alignItems={"center"}
+            m={"auto"}
+            columns={2}
+          >
+            <Box w="30%">
+              <Select
+                
+                bg="transparent"
+                placeholder="Year"
+              >
+                <option style={{background: "transparent", color : "black"}} value="option1">Option 1</option>
+                <option style={{background: "transparent", color : "black"}} value="option2">Option 2</option>
+                <option style={{background: "transparent", color : "black"}} value="option3">Option 3</option>
+              </Select>
+            </Box>
+            <Box w="30%">
+              <Select placeholder="Type">
+                <option  style={{background: "transparent", color : "black"}} value="option1">Option 1</option>
+                <option style={{background: "transparent", color : "black"}} value="option2">Option 2</option>
+                <option style={{background: "transparent", color : "black"}} value="option3">Option 3</option>
+              </Select>
+            </Box>
+          </Flex>
         </Box>
         <br />
         <Box
