@@ -107,7 +107,8 @@ function MovieData() {
     <Center
       id="browse"
       p={10}
-      h="1800px"
+      border={"2px solid red"}
+     
       bg="black"
       display={"grid"}
       gap={"5%"}
@@ -154,6 +155,7 @@ function MovieData() {
       {/* display movie data on mount phase  and also on search based */}
 
       <SimpleGrid
+       
         columns={{
           base: "1", // 0px
           sm: "2", // ~480px. em is a relative unit and is dependant on the font size.
@@ -162,6 +164,7 @@ function MovieData() {
           xl: "4", // ~1280px
           "2xl": "4", // ~1536px
         }}
+       
         w={{
           base: "90%", // 0px
           sm: "100%", // ~480px. em is a relative unit and is dependant on the font size.

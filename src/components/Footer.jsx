@@ -6,6 +6,13 @@ function Footer() {
     <>
       <Center
         bg="RGBA(0, 0, 0, 0.92)"
+        mt={{
+          base : "750%",
+          sm : "150%",
+          md : "100%",
+          lg : "90%",
+          xl : "30%"
+        }}
         w={{
           base: "100%",
           sm: "100%",

@@ -729,6 +729,9 @@ function Home({ query2, searchdata2, searchdata2Length }) {
               <Box
                 h={{
                   base: "450px",
+                  sm : "500px",
+                  md : "600px",
+                  
                 }}
                 w={{
                   base: "75%",

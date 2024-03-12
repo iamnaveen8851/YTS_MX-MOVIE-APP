@@ -1,16 +1,32 @@
 # YTS-MX Movie Search Project
 
-## Functionalities 
-  - `Login` functionality with based on routing 
-  -` Debounce effect` on `navbar seach input` 
-  -` Movie Search Bar With Search Button `functionality on the `Home Page`
-  - `Sort by Year` functionality
-  - `Filter by Type` functionality
-  - `Dynamic Pagination` functionality
-  - `Landing page` functionality
-  - `Dynamic Movie Card` functionality
-  - `Single Movie Card Details` Data functionality  below the UI
+## Functionalities
 
+- `Login` functionality with based on routing -` Debounce effect` on `navbar seach input`
+  - ![alt text](image.png)
+
+-`Movie Search Bar With Search Button`functionality on the `Home Page` - ![alt text](image-1.png)
+
+- `Sort by Year` functionality
+
+  - ![alt text](image-2.png)
+
+- `Filter by Type` functionality
+
+  - ![alt text](image-3.png)
+
+- `Dynamic Pagination` functionality
+
+  - ![alt text](image-4.png)
+
+- `Landing page` functionality
+
+  - ![alt text](image-5.png)
+
+- `Dynamic Movie Card` functionality
+- ![alt text](image-7.png)
+- `Single Movie Card Details` Data functionality below the UI
+- ![alt text](image-6.png)
 
 
 
@@ -21,8 +37,6 @@
 ### React
 
 ## Libraries
-
-
 
 ### React-Router-DOM check[x]
 
@@ -59,6 +73,3 @@
       - Homepage.jsx
       - MovieData to display movie below the home page while navigate
       - SinglePage.jsx to display single movie details onto ui below the home page
-
-
-

@@ -41,8 +41,19 @@ function SingleMovie() {
   return (
   
     <Center  
-    // h="500px"
+    // // h="500px"
+    // w={{
+    //   base : "20%"
+    // }}
     
+    mt={{
+      base : "650%",
+      sm : "190%",
+      md : "155%",
+      lg : "80%",
+      xl : "20%",
+      "2xl"  : "20%"
+    }}
      bg="black">
       <Box
        
@@ -58,7 +69,14 @@ function SingleMovie() {
         m={"auto"}
       >
         <Card bg="black" p={10} m="auto" borderRadius="20px">
-          <CardBody display={"flex"} gap={10}>
+          <CardBody display={"flex"} flexDirection={{
+            base : "column",
+            sm : "column",
+            md : "column",
+            lg : "row",
+            xl : "row",
+            "2xl" : "row"
+          }} gap={10}>
             <Image
             //   w="350px"
             //   h="440px"
