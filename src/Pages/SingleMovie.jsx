@@ -40,7 +40,10 @@ function SingleMovie() {
   console.log(data);
   return (
   
-    <Center  h="500px" bg="black">
+    <Center  
+    // h="500px"
+    
+     bg="black">
       <Box
        
         w={{
@@ -57,8 +60,8 @@ function SingleMovie() {
         <Card bg="black" p={10} m="auto" borderRadius="20px">
           <CardBody display={"flex"} gap={10}>
             <Image
-              w="350px"
-              h="440px"
+            //   w="350px"
+            //   h="440px"
               src={data.Poster}
               alt="Green double couch with wooden legs"
               borderRadius="lg"

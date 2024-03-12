@@ -585,7 +585,6 @@ function Navbar() {
           </Link>
         </Box>
       </Flex>
-
       <Home
         query2={query2}
         searchdata2={searchdata2}
