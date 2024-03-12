@@ -5,7 +5,6 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
-  Link,
   IconButton,
   Drawer,
   DrawerContent,
@@ -16,15 +15,26 @@ import {
   Center,
   Button,
   Text,
-  SimpleGrid,
+  Link,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  InputRightElement,
+  FormControl,
+  FormLabel,
 } from "@chakra-ui/react";
 
 import { SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
 
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Home from "../Pages/Home";
-import { useReducer, useEffect, useState } from "react";
-
+import { useReducer, useEffect, useState, useContext } from "react";
+import { AuthContext } from "../AuthContext/AuthContext";
 // To Maintain Search Query
 const reducer2 = (state, action) => {
   switch (action.type) {
@@ -70,16 +80,34 @@ const reducer1 = (state, action) => {
 };
 
 function Navbar() {
+  const { isLoggedIn, login } = useContext(AuthContext);
   const {
     isOpen: isOpened,
     onOpen: onOpened,
     onClose: onClosed,
   } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isModalOpen,
+    onOpen: onModalOpen,
+    onClose: onModalClose,
+  } = useDisclosure();
   const LinkStyle = {
     color: "grey",
     fontWeight: "600",
   };
+
+  // To maintain form state
+  const [formState, setFormState] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formState;
+
+  // To see password show in input
+  const [show, setShow] = useState(false);
+  const handleClick = () => setShow(!show);
 
   // to add a search query as parameter
   const [getDatas1, dispatch1] = useReducer(reducer1, {
@@ -141,8 +169,83 @@ function Navbar() {
     }
   };
 
+  const navigate = useNavigate();
+  async function handleLogin(e) {
+    try {
+      e.preventDefault();
+
+      let res = await axios.post(`https://reqres.in/api/login`, formState);
+      if (res.request.status) {
+        login();
+        navigate("/");
+        onModalClose();
+      }
+
+      onModalOpen();
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
+   
+      {/* Modal */}
+
+      <Modal isOpen={isModalOpen} onClose={onModalClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Login First To Download</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody p={4}>
+            <FormControl>
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type="email"
+                name="email"
+                value={email}
+                onChange={(e) =>
+                  setFormState({
+                    ...formState,
+                    email: e.target.value,
+                  })
+                }
+              />
+
+              <br />
+
+              <FormLabel>Password</FormLabel>
+              <InputGroup size="md">
+                <Input
+                  pr="4.5rem"
+                  type={show ? "text" : "password"}
+                  name="password"
+                  placeholder="Enter password"
+                  value={password}
+                  onChange={(e) =>
+                    setFormState({
+                      ...formState,
+                      password: e.target.value,
+                    })
+                  }
+                />
+                <InputRightElement width="4.5rem">
+                  <Button h="1.75rem" size="sm" onClick={handleClick}>
+                    {show ? "Hide" : "Show"}
+                  </Button>
+                </InputRightElement>
+              </InputGroup>
+              <br />
+              <Button onClick={(e) => handleLogin(e)} colorScheme="blue" mr={3}>
+                Submit
+              </Button>
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter></ModalFooter>
+        </ModalContent>
+      </Modal>
+      {/* modal */}
       <Flex
         bg="RGBA(0, 0, 0, 0.92)"
         color="white"
@@ -415,6 +518,7 @@ function Navbar() {
                   Browse Movies
                 </Link>
                 <Link
+                  href="/login"
                   style={{
                     ...LinkStyle,
                     transition: "transform 0.2s",
@@ -518,6 +622,7 @@ function Navbar() {
           </InputGroup>
 
           <Link
+            href="/home"
             style={LinkStyle}
             _hover={{
               transform: "scale(1.1)",
@@ -529,6 +634,7 @@ function Navbar() {
             Home
           </Link>
           <Link
+            href="/4k"
             style={{ fontWeight: "600", color: "lightgreen" }}
             _hover={{
               transform: "scale(1.1)",
@@ -540,6 +646,7 @@ function Navbar() {
             4K
           </Link>
           <Link
+            href="/trending"
             style={LinkStyle}
             _hover={{
               transform: "scale(1.1)",
@@ -551,6 +658,7 @@ function Navbar() {
             Trending
           </Link>
           <Link
+            to="/browse"
             style={LinkStyle}
             _hover={{
               transform: "scale(1.1)",
@@ -562,6 +670,7 @@ function Navbar() {
             BrowseMovies
           </Link>
           <Link
+            onClick={onModalOpen}
             style={LinkStyle}
             _hover={{
               transform: "scale(1.1)",
@@ -571,17 +680,6 @@ function Navbar() {
             }}
           >
             Login
-          </Link>
-          <Link
-            style={LinkStyle}
-            _hover={{
-              transform: "scale(1.1)",
-              textDecoration: "underline",
-              textDecorationColor: "lightgreen",
-              textDecorationThickness: "11%",
-            }}
-          >
-            Register
           </Link>
         </Box>
       </Flex>
