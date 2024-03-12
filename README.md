@@ -2,7 +2,15 @@
 
 ## Functionalities
 
-- `Login` functionality with based on routing -` Debounce effect` on `navbar seach input`
+- `Login` functionality with based on routing 
+  - for login i've used reqres api 
+    login credentials :- 
+         --->  email: "eve.holt@reqres.in,
+         ---> password: "cityslicka
+          
+
+
+-` Debounce effect` on `navbar seach input`
   - ![alt text](image.png)
 
 -`Movie Search Bar With Search Button`functionality on the `Home Page` - ![alt text](image-1.png)
