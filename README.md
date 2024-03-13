@@ -10,7 +10,7 @@
           
 
 
--` Debounce effect` on `navbar seach input`
+-` Debounce effect` on `navbar search input`
   - ![alt text](image.png)
 
 -`Movie Search Bar With Search Button`functionality on the `Home Page` - ![alt text](image-1.png)
@@ -33,7 +33,7 @@
 
 - `Dynamic Movie Card` functionality
 - ![alt text](image-7.png)
-- `Single Movie Card Details` Data functionality below the UI
+- `Dynamic Single Movie Card Details` Data functionality below the UI
 - ![alt text](image-6.png)
 
 
