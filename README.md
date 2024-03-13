@@ -33,7 +33,7 @@
 
 - `Dynamic Movie Card` functionality
 - ![alt text](image-7.png)
-- `Single Movie Card Details` Data functionality below the UI
+- `Dynamic Single Movie Card Details` Data functionality below the UI
 - ![alt text](image-6.png)
 
 
