@@ -10,7 +10,7 @@
           
 
 
--` Debounce effect` on `navbar seach input`
+-` Debounce effect` on `navbar search input`
   - ![alt text](image.png)
 
 -`Movie Search Bar With Search Button`functionality on the `Home Page` - ![alt text](image-1.png)
