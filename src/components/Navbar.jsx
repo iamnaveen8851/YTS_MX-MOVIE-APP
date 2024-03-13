@@ -26,7 +26,7 @@ import {
   InputRightElement,
   FormControl,
   FormLabel,
-  useToast
+  useToast,
 } from "@chakra-ui/react";
 
 import { SearchIcon, HamburgerIcon } from "@chakra-ui/icons";
@@ -171,7 +171,7 @@ function Navbar() {
   };
 
   const navigate = useNavigate();
-  const toast = useToast()
+  const toast = useToast();
   async function handleLogin(e) {
     try {
       e.preventDefault();
@@ -183,15 +183,13 @@ function Navbar() {
         navigate("/");
         onModalClose();
         toast({
-          title: 'Login Successful.',
+          title: "Login Successful.",
           description: "We've created your account for you.",
-          status: 'success',
+          status: "success",
           duration: 9000,
           isClosable: true,
-        })
+        });
       }
-
-      
     } catch (error) {
       console.log(error);
     }
@@ -199,7 +197,6 @@ function Navbar() {
 
   return (
     <>
-   
       {/* Modal */}
 
       <Modal isOpen={isModalOpen} onClose={onModalClose}>
@@ -257,6 +254,10 @@ function Navbar() {
       </Modal>
       {/* modal */}
       <Flex
+       
+        position={"sticky"}
+        top="0"
+        zIndex={10}
         bg="RGBA(0, 0, 0, 0.92)"
         color="white"
         justifyContent={"space-between"}
