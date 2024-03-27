@@ -17,24 +17,24 @@
 
 - `Sort by Year` functionality
 
-  - ![alt text](image-2.png)
+  - ![alt text](/public/image-2.png)
 
 - `Filter by Type` functionality
 
-  - ![alt text](image-3.png)
+  - ![alt text](/public/image-3.png)
 
 - `Dynamic Pagination` functionality
 
-  - ![alt text](image-4.png)
+  - ![alt text](/public/image-4.png)
 
 - `Landing page` functionality
 
-  - ![alt text](image-5.png)
+  - ![alt text](/public/image-5.png)
 
 - `Dynamic Movie Card` functionality
-- ![alt text](image-7.png)
+- ![alt text](/public/image-7.png)
 - `Dynamic Single Movie Card Details` Data functionality below the UI
-- ![alt text](image-6.png)
+- ![alt text](/public/image-6.png)
 
 
 
